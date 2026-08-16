@@ -25,7 +25,6 @@ class HandTracker:
         HandLandmarkerOptions = mp.tasks.vision.HandLandmarkerOptions
         VisionRunningMode = mp.tasks.vision.RunningMode
 
-        # Create a hand landmarker instance with the image mode
         options = HandLandmarkerOptions(
             base_options=BaseOptions(model_asset_path='hand_landmarker.task'),
             num_hands=1,
@@ -42,32 +41,17 @@ class HandTracker:
         
         hands = []
 
-        for mp_hand_landmarks, mp_handedness in zip(
-            result.hand_landmarks,
-            result.handedness,
-        ):
-            hand = self._convert_hand(
-                mp_hand_landmarks,
-                mp_handedness,
-            )
+        for mp_hand_landmarks, mp_handedness in zip( result.hand_landmarks , result.handedness ):
+            
+            hand = self._convert_hand( mp_hand_landmarks , mp_handedness)
             hands.append(hand)
 
         return hands
 
-    def _convert_hand(
-        self,
-        mp_hand_landmarks,
-        mp_handedness,
-    ) -> Hand:
+    def _convert_hand(self , mp_hand_landmarks , mp_handedness) -> Hand:
 
-        landmarks = [
-            Landmark(
-                x=lm.x,
-                y=lm.y,
-                z=lm.z,
-            )
-            for lm in mp_hand_landmarks
-        ]
+        landmarks = [ Landmark( x=lm.x, y=lm.y, z=lm.z )
+            for lm in mp_hand_landmarks ]
 
         classification = mp_handedness[0]
 
