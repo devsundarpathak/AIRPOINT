@@ -45,7 +45,7 @@ class MouseController:
 
             self._move_cursor(hand)
 
-        elif ( gesture is Gesture.DOUBLE_CLICKand self.previous_gesture is not Gesture.DOUBLE_CLICK):
+        elif ( gesture is Gesture.DOUBLE_CLICK and self.previous_gesture is not Gesture.DOUBLE_CLICK):
 
             self._double_click()
 
